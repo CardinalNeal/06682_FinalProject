@@ -1,5 +1,6 @@
 """
-This module provides an OpenAlexWorks class. The class should have methods to get an RIS and a BibTeX entry for a DOI.
+This module provides an OpenAlexWorks class. 
+The class should have methods to get an RIS and a BibTeX entry for a DOI.
 """
 
 from setuptools import setup
