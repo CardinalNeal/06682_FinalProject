@@ -84,11 +84,8 @@ class Works:
         else:
             issue = ', ' + issue
 
-        # pages = '-'.join([self.data['biblio'].get('first_page', '') or '',
-        #                   self.data['biblio'].get('last_page', '') or ''])
-
         fp = self.data['biblio']['first_page']
-        lp = self.data['biblio']['first_page']
+        lp = self.data['biblio']['last_page']
         if fp is not None and lp is not None:
             pages = ', '+'-'.join([fp, lp])
         else:
