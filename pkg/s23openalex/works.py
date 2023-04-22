@@ -17,7 +17,7 @@ import base64
 import matplotlib.pyplot as plt
 from IPython.core.pylabtools import print_figure
 import requests
-from IPython.display import HTML
+from IPython.display import display, HTML
 
 
 class Works:
@@ -191,7 +191,8 @@ class Works:
         ris64 = base64.b64encode(ris.encode("utf-8")).decode("utf8")
         uri = f'<pre>{ris}<pre><br><a href="data:text/plain;base64,{ris64}" download="ris">Download RIS</a>'
 
-        return HTML(uri)
+        display(HTML(uri))
+        return ris
 
     def related_works(self):
         """
@@ -264,4 +265,5 @@ class Works:
         result = bibtexparser.dumps(bibtex_db)
         encoder = base64.b64encode(result.encode("utf-8")).decode("utf8")
         uri = f'<pre>{result}<pre><br><a href="data:text/plain;base64,{encoder}" download="bibtex">Download bibtex</a>'
-        return HTML(uri)
+        display(HTML(uri))
+        return result
