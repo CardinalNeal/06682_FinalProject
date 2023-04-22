@@ -190,7 +190,6 @@ class Works:
         ris = "\n".join(fields)
         ris64 = base64.b64encode(ris.encode("utf-8")).decode("utf8")
         uri = f'<pre>{ris}<pre><br><a href="data:text/plain;base64,{ris64}" download="ris">Download RIS</a>'
-        from IPython.display import HTML
 
         return HTML(uri)
 
