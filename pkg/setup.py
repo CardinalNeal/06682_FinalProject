@@ -1,5 +1,5 @@
 """
-This module provides an OpenAlexWorks class. 
+This module provides an OpenAlexWorks class.
 The class should have methods to get an RIS and a BibTeX entry for a DOI.
 """
 
