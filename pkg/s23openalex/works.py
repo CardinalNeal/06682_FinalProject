@@ -60,8 +60,7 @@ class Works:
         """
         Return a detailed string representation of the work.
         """
-        _authors = [au["author"]["display_name"]
-                    for au in self.data["authorships"]]
+        _authors = [au["author"]["display_name"] for au in self.data["authorships"]]
         if len(_authors) == 0:
             authors = ""
         elif len(_authors) == 1:
@@ -250,8 +249,7 @@ class Works:
             "ENTRYTYPE": "article",
             "ID": f"{ds_au}-{str(self.data['publication_year'])}-{id_title}",
             "author": " and ".join(
-                [au["author"]["display_name"]
-                    for au in self.data["authorships"]]
+                [au["author"]["display_name"] for au in self.data["authorships"]]
             ),
             "title": self.data["title"],
             "journal": self.data["host_venue"]["display_name"],
