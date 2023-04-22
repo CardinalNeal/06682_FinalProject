@@ -1,4 +1,4 @@
-name: Namekkk job
+name: Package Test
 on: push
 
 jobs:
