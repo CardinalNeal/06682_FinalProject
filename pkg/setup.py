@@ -13,6 +13,7 @@ setup(
     author="Yichen Zheng",
     author_email="yichenz3@andrew.cmu.edu",
     license="MIT",
+    entry_points={"console_scripts": ["oa = s23openalex.command_util:main"]},
     packages=["s23openalex"],
     python_requires=">=3.6",
 )
