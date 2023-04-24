@@ -3,7 +3,9 @@
 - [x] add an Actions status badge that shows in the README
 - [x] package should also have a license.
 - [x] have methods to get an RIS and a bibtex entry for a DOI.
-- [ ] have a command line utility that prints RIS or bibtex to the terminal.
+- [x] have a command line utility that prints RIS or bibtex to the terminal.
+- [ ] Reformat works.py to pass pylint
+- [ ] add the evidence to prove my output is correct, one maybe the send to bibparser to see any error?
 - [ ] make sure your repo passes black and pylint.
-- [ ] add more ? package test
+- [x] add more ? package test [No Need]
 
