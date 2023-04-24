@@ -1,7 +1,7 @@
 """
 This test file test work.ris function is correct or not
 """
-from s23openalex import Works
+from .works import Works
 
 
 REF_RIS = """TY  - JOUR

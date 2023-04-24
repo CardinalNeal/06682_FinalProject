@@ -1,7 +1,7 @@
 """
 This test file tests the basic info of one example.
 """
-from s23openalex import Works
+from .works import Works
 
 
 def test_str():
