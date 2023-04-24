@@ -86,28 +86,28 @@ class Works:
         # pages = '-'.join([self.data['biblio'].get('first_page', '') or '',
         #                   self.data['biblio'].get('last_page', '') or ''])
 
-        fp = self.data["biblio"]["first_page"]
-        lp = self.data["biblio"]["first_page"]
-        if fp is not None and lp is not None:
-            pages = ", " + "-".join([fp, lp])
+        first_page = self.data["biblio"]["first_page"]
+        last_page = self.data["biblio"]["first_page"]
+        if first_page is not None and last_page is not None:
+            pages = ", " + "-".join([first_page, last_page])
         else:
-            if fp is None:
-                fp = ""
-            if lp is None:
-                lp = ""
-            pages = fp + lp
+            if first_page is None:
+                first_page = ""
+            if last_page is None:
+                last_page = ""
+            pages = first_page + last_page
         if pages != "":
             pages = pages + ", "
 
         year = self.data["publication_year"]
         citedby = self.data["cited_by_count"]
 
-        oa = self.data["id"]
-        s = (
+        oa_id = self.data["id"]
+        output_string = (
             f"{authors}, {title}{volume}{issue}{pages}({year}), "
-            f'{self.data["doi"]}. cited by: {citedby}. {oa}'
+            f'{self.data["doi"]}. cited by: {citedby}. {oa_id}'
         )
-        return s
+        return output_string
 
     def _repr_markdown_(self):
         """
@@ -142,29 +142,29 @@ class Works:
         year = self.data["publication_year"]
         citedby = self.data["cited_by_count"]
 
-        oa = self.data["id"]
+        oa_id = self.data["id"]
 
         # Citation counts by year
         years = [e["year"] for e in self.data["counts_by_year"]]
         counts = [e["cited_by_count"] for e in self.data["counts_by_year"]]
 
-        fig, ax = plt.subplots()
-        ax.bar(years, counts)
-        ax.set_xlabel("year")
-        ax.set_ylabel("citation count")
+        fig, plot_axis = plt.subplots()
+        plot_axis.bar(years, counts)
+        plot_axis.set_xlabel("year")
+        plot_axis.set_ylabel("citation count")
         data = print_figure(fig, "png")  # save figure in string
         plt.close(fig)
 
         b64 = base64.b64encode(data).decode("utf8")
         citefig = f"![img](data:image/png;base64,{b64})"
 
-        s = (
+        output_string = (
             f"{authors}, *{title}*, **{journal}**, {volume}{issue}{pages}, ({year}), "
-            f'{self.data["doi"]}. cited by: {citedby}. [Open Alex]({oa})'
+            f'{self.data["doi"]}. cited by: {citedby}. [Open Alex]({oa_id})'
         )
 
-        s += "<br>" + citefig
-        return s
+        output_string += "<br>" + citefig
+        return output_string
 
     @property
     def ris(self):
@@ -209,8 +209,8 @@ class Works:
         """
         rworks = []
         for rw_url in self.data["related_works"]:
-            rw = Works(rw_url)
-            rworks += [rw]
+            related_work = Works(rw_url)
+            rworks += [related_work]
             time.sleep(0.101)
         return rworks
 
@@ -220,8 +220,8 @@ class Works:
         """
         rworks = []
         for rw_url in self.data["referenced_works"]:
-            rw = Works(rw_url)
-            rworks += [rw]
+            related_work = Works(rw_url)
+            rworks += [related_work]
             time.sleep(0.101)
         return rworks
 
@@ -237,8 +237,8 @@ class Works:
             return
         rworks = []
         for item in url_data["results"]:
-            rw = Works(item["id"])
-            rworks.append(rw)
+            related_work = Works(item["id"])
+            rworks.append(related_work)
             time.sleep(0.101)
         return rworks
 
@@ -248,9 +248,9 @@ class Works:
         Return a BibTeX entry for the work.
         """
         doi = self.data["doi"].replace("https://doi.org/", "")
-        for au in self.data["authorships"]:
-            if au["author_position"] == "first":
-                ds_au = au["author"]["display_name"]
+        for author in self.data["authorships"]:
+            if author["author_position"] == "first":
+                ds_au = author["author"]["display_name"]
                 ds_au = ds_au.split()[-1].lower()
         id_title = self.data["title"].lower().split()[:3:2]
         id_title = "-".join(id_title)
