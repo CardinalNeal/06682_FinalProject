@@ -12,12 +12,13 @@ Example usage:
 """
 
 import time
-import bibtexparser
 import base64
+import bibtexparser
 import matplotlib.pyplot as plt
 from IPython.core.pylabtools import print_figure
-import requests
 from IPython.display import display, HTML
+import requests
+from requests.exceptions import RequestException
 
 
 class Works:
@@ -69,8 +70,6 @@ class Works:
             authors = ", ".join(_authors[0:-1]) + " and" + _authors[-1]
 
         title = self.data["title"]
-
-        journal = self.data["host_venue"]["display_name"]
         volume = self.data["biblio"]["volume"]
         if volume is None:
             volume = ""
@@ -109,23 +108,26 @@ class Works:
         )
         return output_string
 
-    def _repr_markdown_(self):
+    def _format_authors(self):
         """
-        Return a Markdown representation of the work with a citation graph.
+        Helper function to form author list, return the authors list
         """
         _authors = [
             f'[{au["author"]["display_name"]}]({au["author"]["id"]})'
             for au in self.data["authorships"]
         ]
         if len(_authors) == 1:
-            authors = _authors[0]
-        else:
-            authors = ", ".join(_authors[0:-1]) + " and " + _authors[-1]
+            return _authors[0]
+        return ", ".join(_authors[0:-1]) + " and " + _authors[-1]
 
-        title = self.data["title"]
+    def _repr_markdown_(self):
+        """
+        Return a Markdown representation of the work with a citation graph.
+        """
+
+        authors = self._format_authors()
 
         journal = f"[{self.data['host_venue']['display_name']}]({self.data['host_venue']['id']})"
-        volume = self.data["biblio"]["volume"]
 
         issue = self.data["biblio"]["issue"]
         if issue is None:
@@ -139,10 +141,6 @@ class Works:
                 self.data["biblio"].get("last_page", "") or "",
             ]
         )
-        year = self.data["publication_year"]
-        citedby = self.data["cited_by_count"]
-
-        oa_id = self.data["id"]
 
         # Citation counts by year
         years = [e["year"] for e in self.data["counts_by_year"]]
@@ -159,8 +157,10 @@ class Works:
         citefig = f"![img](data:image/png;base64,{b64})"
 
         output_string = (
-            f"{authors}, *{title}*, **{journal}**, {volume}{issue}{pages}, ({year}), "
-            f'{self.data["doi"]}. cited by: {citedby}. [Open Alex]({oa_id})'
+            f'{authors}, *{self.data["title"]}*, **{journal}**, '
+            f'{self.data["biblio"]["volume"]}{issue}{pages}, ({self.data["publication_year"]}), '
+            f'{self.data["doi"]}. cited by: {self.data["cited_by_count"]}.'
+            f' [Open Alex]({self.data["id"]})'
         )
 
         output_string += "<br>" + citefig
@@ -232,9 +232,9 @@ class Works:
         url = self.data["cited_by_api_url"]
         try:
             url_data = requests.get(url).json()
-        except:
+        except RequestException:
             print("Can not get the data from the url!")
-            return
+            return []
         rworks = []
         for item in url_data["results"]:
             related_work = Works(item["id"])
