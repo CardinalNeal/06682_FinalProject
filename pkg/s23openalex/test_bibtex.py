@@ -3,7 +3,7 @@ This test file test work.ris function is correct or not
 """
 from s23openalex import Works
 
-ref_bibtex = """@article{kitchin-2015-examples-effective,
+REF_BIBTEX = """@article{kitchin-2015-examples-effective,
  author = {John R. Kitchin},
  doi = {10.1021/acscatal.5b00538},
  journal = {ACS Catalysis},
@@ -18,5 +18,8 @@ ref_bibtex = """@article{kitchin-2015-examples-effective,
 
 
 def test_bibtex():
-    w = Works("https://doi.org/10.1021/acscatal.5b00538")
-    assert ref_bibtex == w.bibtex
+    """
+    Test the bibtex property of the Works class have the correct output.
+    """
+    works = Works("https://doi.org/10.1021/acscatal.5b00538")
+    assert REF_BIBTEX == works.bibtex
