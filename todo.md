@@ -4,8 +4,8 @@
 - [x] package should also have a license.
 - [x] have methods to get an RIS and a bibtex entry for a DOI.
 - [x] have a command line utility that prints RIS or bibtex to the terminal.
-- [ ] Reformat works.py to pass pylint
-- [ ] add the evidence to prove my output is correct, one maybe the send to bibparser to see any error?
-- [ ] make sure your repo passes black and pylint.
+- [x] Reformat works.py to pass pylint
+- [x] add the evidence to prove my output is correct, one maybe the send to bibparser to see any error?
+- [x] make sure your repo passes black and pylint.
 - [x] add more ? package test [No Need]
 
