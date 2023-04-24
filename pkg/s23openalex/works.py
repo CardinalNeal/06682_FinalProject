@@ -103,7 +103,10 @@ class Works:
         citedby = self.data["cited_by_count"]
 
         oa = self.data["id"]
-        s = f'{authors}, {title}{volume}{issue}{pages}({year}), {self.data["doi"]}. cited by: {citedby}. {oa}'
+        s = (
+            f"{authors}, {title}{volume}{issue}{pages}({year}), "
+            f'{self.data["doi"]}. cited by: {citedby}. {oa}'
+        )
         return s
 
     def _repr_markdown_(self):
@@ -155,7 +158,10 @@ class Works:
         b64 = base64.b64encode(data).decode("utf8")
         citefig = f"![img](data:image/png;base64,{b64})"
 
-        s = f'{authors}, *{title}*, **{journal}**, {volume}{issue}{pages}, ({year}), {self.data["doi"]}. cited by: {citedby}. [Open Alex]({oa})'
+        s = (
+            f"{authors}, *{title}*, **{journal}**, {volume}{issue}{pages}, ({year}), "
+            f'{self.data["doi"]}. cited by: {citedby}. [Open Alex]({oa})'
+        )
 
         s += "<br>" + citefig
         return s
@@ -189,7 +195,10 @@ class Works:
 
         ris = "\n".join(fields)
         ris64 = base64.b64encode(ris.encode("utf-8")).decode("utf8")
-        uri = f'<pre>{ris}<pre><br><a href="data:text/plain;base64,{ris64}" download="ris">Download RIS</a>'
+        uri = (
+            f'<pre>{ris}<pre><br><a href="data:text/plain;base64,{ris64}"'
+            f'download="ris">Download RIS</a>'
+        )
 
         display(HTML(uri))
         return ris
@@ -264,6 +273,9 @@ class Works:
         bibtex_db.entries = [entry]
         result = bibtexparser.dumps(bibtex_db)
         encoder = base64.b64encode(result.encode("utf-8")).decode("utf8")
-        uri = f'<pre>{result}<pre><br><a href="data:text/plain;base64,{encoder}" download="bibtex">Download bibtex</a>'
+        uri = (
+            f"<pre>{result}<pre><br>"
+            f'<a href="data:text/plain;base64,{encoder}" download="bibtex">Download bibtex</a>'
+        )
         display(HTML(uri))
         return result
