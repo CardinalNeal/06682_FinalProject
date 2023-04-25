@@ -1,10 +1,10 @@
-# 06682_FinalProject
+# CMU 06682_FinalProject
 
 [![Package Test](https://github.com/CardinalNeal/06682_FinalProject/actions/workflows/pkgtest-workflow.yaml/badge.svg?branch=main)](https://github.com/CardinalNeal/06682_FinalProject/actions/workflows/pkgtest-workflow.yaml)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CardinalNeal/06682_FinalProject/blob/main/project.ipynb)
 
 
-The final project is to create a small Python package for OpenAlex based on what we have learned so far.
+The final project is to create a small Python package for OpenAlex based on what we have learned so far. :partying_face: :partying_face:
 
 
 # OpenAlex API Works Module
