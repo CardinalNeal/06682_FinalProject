@@ -16,7 +16,8 @@ The OpenAlex API Works module is a Python package for interacting with the OpenA
 To install the OpenAlex API Works module, run the following command:
 
 ```bash
-pip install s23openalex
+cd 06682_FinalProject/pkg
+pip install .
 ```
 
 ## Usage
